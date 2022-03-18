@@ -19,3 +19,9 @@ This dataset collects information from 100k medical appointments in Brazil and i
 ## Analysis Scope
 - Data Wrangling 
 - Exploratory Data Analysis (EDA)
+- Data Visualization 
+
+## Tools
+- Programming Language: Python
+- Libraries: Pandas, Numpy, Matplotlib
+- Jupyter Notebook
