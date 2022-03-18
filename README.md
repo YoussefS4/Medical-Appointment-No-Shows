@@ -15,3 +15,7 @@ This dataset collects information from 100k medical appointments in Brazil and i
 - The most age attending for Males is group ~(0 - 10) and for females is group ~(50 - 58).
 - The most age who didn't attend for males is group ~(0 - 10) and for females is group ~(22 - 27).
 - There is no factor for patients attendence the only facotr is the distance between clinic and the Neighbourhood. 
+
+## Analysis Scope
+- Data Wrangling 
+- Exploratory Data Analysis (EDA)
