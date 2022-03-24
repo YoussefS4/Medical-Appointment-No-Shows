@@ -13983,6 +13983,22 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><a id='intro'></a></p>
 <h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><h3 id="Dataset-Description">Dataset Description<a class="anchor-link" href="#Dataset-Description">&#182;</a></h3><p>This dataset collects information from 100k medical appointments in Brazil and is focused on the question of whether or not patients show up for their appointment. A number of characteristics about the patient are included in each row.</p>
+<h3 id="Explanation-of-each-column-:">Explanation of each column :<a class="anchor-link" href="#Explanation-of-each-column-:">&#182;</a></h3><ul>
+<li>PatientId — Identification of a patient</li>
+<li>AppointmentID — Identification of each appointment</li>
+<li>Gender — Male or Female</li>
+<li>ScheduledDay — The day someone called or registered the appointment, this is before appointment Day.</li>
+<li>AppointmentDay — The day of the actuall appointment, when they have to visit the doctor.</li>
+<li>Age — How old is the patient.</li>
+<li>Neighbourhood — indicates the location of the hospital.</li>
+<li>Scholarship — indicates whether or not the patient is enrolled in Brasilian welfare program Bolsa Família.</li>
+<li>Hipertension — True or False</li>
+<li>Diabetes True or False</li>
+<li>Alcoholism True or False</li>
+<li>Handcap True or False</li>
+<li>SMS_received — 1 if messages sent to the patient else 0.</li>
+<li>No-show — "No" if the patient showed up to their appointment, "Yes" if they did not show up.</li>
+</ul>
 <h3 id="Questions-for-Analysis">Questions for Analysis<a class="anchor-link" href="#Questions-for-Analysis">&#182;</a></h3><ul>
 <li>Question 1: How many patients attend and who missed the appointment ?</li>
 <li>Question 2: How many patients attend missed the appointment according to the gender?</li>
@@ -15118,7 +15134,7 @@ dtype: int64</pre>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>There are 199 raw with values different from 0 and 1, we will remove them in data cleaning section</li>
+<li>There are 199 raw with values different from 0 and 1, we will remove them in data cleaning section, it must contain the values 0 (False) or 1 (True) </li>
 </ul>
 
 </div>
@@ -16034,7 +16050,7 @@ The percentage of females patients that missed the appointment is 16.02616858932
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot the information about which age is the most common for showing up according to the gender</span>
-<span class="k">def</span> <span class="nf">fil</span><span class="p">(</span><span class="n">gender</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">attend</span><span class="p">(</span><span class="n">gender</span><span class="p">):</span>
     <span class="n">df</span><span class="p">[</span><span class="n">show</span><span class="p">]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;gender ==@ gender&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">hist</span><span class="p">();</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Most common age males and females who attend the appointment&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Age&#39;</span><span class="p">)</span>
@@ -16088,7 +16104,7 @@ The percentage of females patients that missed the appointment is 16.02616858932
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># plot the information about which age is the most common for missing the appointment according to the gender</span>
-<span class="k">def</span> <span class="nf">fil</span><span class="p">(</span><span class="n">gender</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">missed</span><span class="p">(</span><span class="n">gender</span><span class="p">):</span>
     <span class="n">df</span><span class="p">[</span><span class="n">noshow</span><span class="p">]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;gender ==@ gender&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">age</span><span class="o">.</span><span class="n">hist</span><span class="p">();</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Most common age males and females who missed the appointment&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Age&#39;</span><span class="p">)</span>
@@ -16570,14 +16586,15 @@ The percentage of females patients that missed the appointment is 16.02616858932
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><a id='conclusions'></a></p>
 <h2 id="Conclusions">Conclusions<a class="anchor-link" href="#Conclusions">&#182;</a></h2><ul>
-<li>There is 75.4% (54057) who is showing up and 24.6% (17632) who missed.</li>
+<li>There is 75.4% patients (54057) who did show up and 24.6% (17632) who missed.</li>
 <li>The percentage of males patients that missed the appointment is 8.57% (6143)and for females is 16.03% (11489).</li>
 <li>The most age attending for Males is group ~(0 - 10) and for females is group ~(50 - 58).</li>
 <li>The most age who didn't attend for males is group ~(0 - 10) and for females is group ~(22 - 27).</li>
 <li>There is no factor for patients attendence the only facotr is the distance between clinic and the Neighbourhood.</li>
 </ul>
 <h4 id="Limitations:">Limitations:<a class="anchor-link" href="#Limitations:">&#182;</a></h4><ul>
-<li>There is some wrong data such as age is less than 0 and Handcap columns was have values bigger than 1 and it must be 0 or 1.</li>
+<li>There is some wrong data such as age is less than 0. </li>
+<li>The Handcap column had a values greater than 1, which meant that it must contain the values 0 (False) or 1 (True), so we removed them.</li>
 </ul>
 
 </div>
